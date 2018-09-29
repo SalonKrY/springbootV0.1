@@ -17,8 +17,8 @@ spring:
   virtual-host: /
   publisher-confirms: true
   listener:
-      simple:
-        prefetch: 1 #0为轮询，1为分发默认分发
+   simple:
+    prefetch: 1 #0为轮询，1为分发默认分发          
 mybatis:
  mapper-locations: classpath:mybatis/mapper/*.xml
  config-location: classpath:mybatis/mybatis-config.xml
