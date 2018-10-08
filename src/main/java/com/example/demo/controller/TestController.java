@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,5 +66,16 @@ public class TestController {
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
 	public User getUser(@PathVariable(value = "id") String id) throws Exception {
 		return userService.queryUser(id);
+	}
+	
+	@Autowired
+	private RedisTemplate<String,Object> redisTemplate;
+	
+	@GetMapping("/testRedis")
+	public String testRedis() {
+	    redisTemplate.opsForValue().set("a", "1");
+        Object a = redisTemplate.opsForValue().get("a");
+        System.out.println(a);
+        return a.toString();
 	}
 }
