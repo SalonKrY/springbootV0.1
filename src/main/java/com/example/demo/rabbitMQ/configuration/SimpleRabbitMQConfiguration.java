@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class SimpleRabbitMQConfiguration {
 	
 	private static final String SIMPLE_QUEUE_NAME = "simple_queue_name";

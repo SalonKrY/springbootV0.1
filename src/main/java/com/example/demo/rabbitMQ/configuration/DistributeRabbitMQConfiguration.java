@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class DistributeRabbitMQConfiguration {
 	
 	private static final String DISTRIBUTE_QUEUE_NAME = "distribute_queue_name";

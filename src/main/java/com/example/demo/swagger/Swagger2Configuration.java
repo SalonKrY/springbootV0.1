@@ -32,7 +32,7 @@ public class Swagger2Configuration {
 				.title("Spring Boot 之 Web 篇")// 标题               
 				.description("spring boot Web 相关内容")// 描述                
 				.termsOfServiceUrl("http://www.extlight.com")//                
-				.contact(new Contact("moonlightL", "http://www.extlight.com", "445847261@qq.com"))// 联系                
+				.contact(new Contact("SalonKrY", "http://www.xxxxx.com", "xxxxxx@qq.com"))// 联系                
 				.version("1.0")// 版本                
 				.build();    
 	}

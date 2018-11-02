@@ -67,15 +67,5 @@ public class TestController {
 	public User getUser(@PathVariable(value = "id") String id) throws Exception {
 		return userService.queryUser(id);
 	}
-	
-	@Autowired
-	private RedisTemplate<String,Object> redisTemplate;
-	
-	@GetMapping("/testRedis")
-	public String testRedis() {
-	    redisTemplate.opsForValue().set("a", "1");
-        Object a = redisTemplate.opsForValue().get("a");
-        System.out.println(a);
-        return a.toString();
-	}
+	 
 }
