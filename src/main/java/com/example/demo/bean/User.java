@@ -1,10 +1,14 @@
 package com.example.demo.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class User {
+public class User implements Serializable{
+ 
+	private static final long serialVersionUID = 7201208838451952980L;
+	
 	private String id;
 	private String userName;
 	private String password;

@@ -25,6 +25,10 @@ spring:
    pool:   
     max-idle: 200
     max-wait: 1000
+ data:
+  mongodb:
+    uri: mongodb://localhost:27017/local
+    #uri: mongodb://user:pwd@ip1:port1,ip2:port2/database   
 mybatis:
  mapper-locations: classpath:mybatis/mapper/*.xml
  config-location: classpath:mybatis/mybatis-config.xml

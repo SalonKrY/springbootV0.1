@@ -19,6 +19,7 @@ public class RedisController {
 	@GetMapping("/testRedis")
 	public String testRedis() {
 	    redisTemplate.opsForValue().set("a", "1");
+	    redisTemplate.opsForValue().set("b", "2", 600);
         Object a = redisTemplate.opsForValue().get("a");
         System.out.println(a);
         return a.toString();
