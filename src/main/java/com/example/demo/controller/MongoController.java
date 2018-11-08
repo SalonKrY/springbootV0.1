@@ -4,9 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Box;
 import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,7 +72,39 @@ public class MongoController {
 		Circle circle = new Circle(30, 20, 20);
 		Query query = new Query(Criteria.where("location").within(circle));
 		List<User> users = mongoTemplate.find(query,User.class);
-		return users.toString();
+		return JSON.toJSONString(users);
+	}
+	
+	@GetMapping("/circleSphereQuery")
+	public String circleSphereQuery(){
+		Circle circle = new Circle(30, 20, 20);
+		Query query = new Query(Criteria.where("location").withinSphere(circle));
+		List<User> users = mongoTemplate.find(query,User.class);
+		return JSON.toJSONString(users);
+	}
+	
+	@GetMapping("/rectangleQuery")
+	public String rectangleQuery(){
+		Box box = new Box(new Point(10,10),new Point(10,20));
+		Query query = new Query(Criteria.where("location").within(box));
+		List<User> users = mongoTemplate.find(query,User.class);
+		return JSON.toJSONString(users);
+	}
+	
+	@GetMapping("/nearbyQuery")
+	public String nearbyQuery(){
+		Point point = new Point(10,10);
+		Query query = new Query(Criteria.where("location").near(point).maxDistance(20));
+		List<User> users = mongoTemplate.find(query,User.class);
+		return JSON.toJSONString(users);
+	}
+	
+	@GetMapping("/nearestQuery")
+	public String nearestQuery(){
+		Point point = new Point(10,10);
+		NearQuery query = NearQuery.near(point).maxDistance(new Distance(100000, Metrics.KILOMETERS));
+		GeoResults<User> users = mongoTemplate.geoNear(query, User.class);
+		return JSON.toJSONString(users);
 	}
 	
 	@PostMapping("/createGeoData")
