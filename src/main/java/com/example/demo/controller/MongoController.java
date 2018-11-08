@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Circle;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -57,5 +59,27 @@ public class MongoController {
 		Query query = new Query(Criteria.where("id").is(id));
 		DeleteResult result = mongoTemplate.remove(query, User.class);
 		return "删除个数为：" + result.getDeletedCount();
+	}
+	
+	@GetMapping("/circleQuery")
+	public String circleQuery(){
+		Circle circle = new Circle(30, 20, 20);
+		Query query = new Query(Criteria.where("location").within(circle));
+		List<User> users = mongoTemplate.find(query,User.class);
+		return users.toString();
+	}
+	
+	@PostMapping("/createGeoData")
+	public void createGeoData(){
+		for (int i = 0; i < 10; i++) { 
+			User user = new User();
+			user.setId( i+ 1 + "");
+			user.setBirthday(new Date());
+			user.setUserName("username");
+			user.setPassword("123456");
+			Double location[] = new Double[]{Double.valueOf(Math.random() * 100), Double.valueOf(Math.random() * 100)};
+			user.setLocation(location);
+			mongoTemplate.insert(user);
+		}
 	}
 }
